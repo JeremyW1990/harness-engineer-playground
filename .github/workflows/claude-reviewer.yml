@@ -40,7 +40,7 @@ jobs:
           prompt: |
             You are reviewing a pull request targeting `${{ github.event.pull_request.base.ref }}`.
 
-            Read AGENTS.md (symlinked as CLAUDE.md) for the project conventions and review criteria.
+            CLAUDE.md (auto-loaded) has the project conventions and review criteria. AGENTS.md has the Vite+ toolchain reference if you need command details.
 
             Workflow:
             1. Run `gh pr diff ${{ github.event.pull_request.number }}` to see the changes.
