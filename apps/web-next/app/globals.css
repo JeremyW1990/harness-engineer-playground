@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+@source '../';
+@source '../../../packages/ui/src';
+@import '../../../packages/ui/src/styles/tailwind.css';
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

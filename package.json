@@ -1,0 +1,41 @@
+{
+  "name": "app-monorepo-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo build",
+    "check": "vp exec --filter web-remix -- react-router typegen && vp check --fix",
+    "dev": "turbo dev",
+    "dev:expo": "pnpm --filter expo-next ios",
+    "format": "vp fmt . --write",
+    "lint": "vp lint .",
+    "nip": "nip",
+    "catalog": "pnpx codemod pnpm/catalog",
+    "prepare": "vp config"
+  },
+  "dependencies": {
+    "@antfu/nip": "^0.1.0",
+    "@tanstack/react-query": "^5.99.0",
+    "@tanstack/react-router": "^1.168.22",
+    "@tanstack/react-start": "^1.167.41",
+    "@trpc/client": "^11.12.0",
+    "@trpc/react-query": "^11.12.0",
+    "@trpc/server": "^11.12.0",
+    "valibot": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7",
+    "consola": "^3.4.2",
+    "rimraf": "^6.1.2",
+    "tsx": "^4.21.0",
+    "turbo": "^2.6.3",
+    "typescript": "^6.0.2",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@10.5.2"
+}
