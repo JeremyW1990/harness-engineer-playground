@@ -44,7 +44,7 @@ function HomePage() {
           <div className='flex min-h-64 items-center justify-center z-10'>
             <ShimmerButton className='shadow-2xl'>
               <span className='text-sm text-white leading-none tracking-tight font-medium text-center whitespace-pre-wrap lg:text-lg dark:from-white dark:to-slate-900/10'>
-                f3-appppp?+
+                Harness Playground
               </span>
             </ShimmerButton>
           </div>
