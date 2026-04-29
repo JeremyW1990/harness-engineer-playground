@@ -1,0 +1,60 @@
+name: Claude Reviewer
+
+# The "evaluator" half of the harness.
+# Runs on every PR push. Separate workflow run = separate context from the coder,
+# which is what makes the review independent (per Anthropic's harness-design research:
+# self-review by the same context fails — the model praises its own work).
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [develop, main]
+
+concurrency:
+  group: claude-reviewer-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            {
+              "model": "claude-opus-4-7",
+              "maxTurns": 15,
+              "allowedTools": ["Read", "Glob", "Grep", "Bash"]
+            }
+          prompt: |
+            You are reviewing a pull request targeting `${{ github.event.pull_request.base.ref }}`.
+
+            Read AGENTS.md (symlinked as CLAUDE.md) for the project conventions and review criteria.
+
+            Workflow:
+            1. Run `gh pr diff ${{ github.event.pull_request.number }}` to see the changes.
+            2. Read the PR body to understand the intent (the "sprint contract").
+            3. Open the changed files in context — don't just review the diff in isolation.
+            4. Post inline review comments on specific lines for issues you find.
+            5. Post a single top-level summary comment with your overall assessment.
+
+            Bar for raising an issue: substantive only. oxlint already handles style.
+            Specifically focus on:
+            - Logic errors and edge cases the author may have missed
+            - Security: prompt-injection vectors in workflow files, secret exposure, unsafe shell expansion
+            - Mismatch between PR description and actual diff
+            - Cross-file consistency across this monorepo (apps/* and packages/*)
+            - Whether tests cover the change (if the change has testable behavior)
+
+            DO NOT rubber-stamp. DO NOT nitpick. If the PR is genuinely clean, say so concisely.
