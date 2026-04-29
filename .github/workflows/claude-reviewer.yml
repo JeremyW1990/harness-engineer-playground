@@ -34,8 +34,7 @@ jobs:
           claude_args: |
             {
               "model": "claude-opus-4-7",
-              "maxTurns": 15,
-              "allowedTools": ["Read", "Glob", "Grep", "Bash"]
+              "maxTurns": 15
             }
           prompt: |
             You are reviewing a pull request targeting `${{ github.event.pull_request.base.ref }}`.
