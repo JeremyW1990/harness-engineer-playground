@@ -31,7 +31,7 @@ function HomePage() {
 
           <a
             rel='noreferrer noopener'
-            href='https://github.com/fisand/f3-app'
+            href='https://github.com/JeremyW1990/harness-engineer-playground'
             target='_blank'
             className='flex-col-center'
           >
