@@ -48,6 +48,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # PAT (when set) so subsequent pushes trigger downstream workflows.
+          # GitHub's anti-loop rule blocks workflows from firing on commits
+          # pushed using the default GITHUB_TOKEN.
+          token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
 
       - uses: voidzero-dev/setup-vp@v1
         with:
@@ -55,6 +59,6 @@ jobs:
 
       - uses: anthropics/claude-code-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: --model claude-opus-4-7 --max-turns 30 --allowedTools "Edit,MultiEdit,Write,Read,Glob,Grep,LS,Bash(git:*),Bash(gh:*),Bash(vp:*),Bash(pnpm:*),Bash(node:*)"
