@@ -31,7 +31,7 @@ function HomePage() {
 
           <a
             rel='noreferrer noopener'
-            href='https://github.com/fisand/f3-app'
+            href='https://github.com/JeremyW1990/harness-engineer-playground'
             target='_blank'
             className='flex-col-center'
           >
@@ -44,7 +44,7 @@ function HomePage() {
           <div className='flex min-h-64 items-center justify-center z-10'>
             <ShimmerButton className='shadow-2xl'>
               <span className='text-sm text-white leading-none tracking-tight font-medium text-center whitespace-pre-wrap lg:text-lg dark:from-white dark:to-slate-900/10'>
-                f3-appppp?+
+                Harness Playground
               </span>
             </ShimmerButton>
           </div>
